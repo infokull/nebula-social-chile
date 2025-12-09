@@ -1,12 +1,14 @@
 import { useState, useRef } from "react";
-import { Upload, Image as ImageIcon } from "lucide-react";
+import { Upload, Image as ImageIcon, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface ImageReplacerProps {
   imageKey: string;
   defaultContent?: React.ReactNode;
   className?: string;
   aspectRatio?: "video" | "square" | "auto";
+  staticSrc?: string; // Para imágenes estáticas del repo
 }
 
 export const ImageReplacer = ({
@@ -14,12 +16,16 @@ export const ImageReplacer = ({
   defaultContent,
   className,
   aspectRatio = "video",
+  staticSrc,
 }: ImageReplacerProps) => {
-  const [image, setImage] = useState<string | null>(() => {
+  const [tempImage, setTempImage] = useState<string | null>(() => {
     return localStorage.getItem(`nebula-image-${imageKey}`);
   });
   const [isHovering, setIsHovering] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Usar imagen estática si existe, sino la temporal de localStorage
+  const displayImage = staticSrc || tempImage;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -28,13 +34,25 @@ export const ImageReplacer = ({
       reader.onloadend = () => {
         const base64 = reader.result as string;
         localStorage.setItem(`nebula-image-${imageKey}`, base64);
-        setImage(base64);
+        setTempImage(base64);
+        
+        // Descargar archivo para que el usuario lo agregue al repo
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(file);
+        link.download = `${imageKey}.${file.name.split('.').pop()}`;
+        link.click();
+        
+        toast.success(
+          `Imagen guardada temporalmente. El archivo "${link.download}" se descargó. Agrégalo a src/assets/images/ en tu repo de GitHub.`,
+          { duration: 8000 }
+        );
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     fileInputRef.current?.click();
   };
 
@@ -63,9 +81,9 @@ export const ImageReplacer = ({
         className="hidden"
       />
 
-      {image ? (
+      {displayImage ? (
         <img
-          src={image}
+          src={displayImage}
           alt="Custom"
           className="w-full h-full object-cover"
         />
@@ -85,9 +103,12 @@ export const ImageReplacer = ({
         )}
       >
         <Upload className="w-8 h-8 text-white mb-2" />
-        <span className="text-white text-sm font-medium">
-          {image ? "Reemplazar imagen" : "Subir imagen"}
+        <span className="text-white text-sm font-medium text-center px-4">
+          {displayImage ? "Reemplazar imagen" : "Subir imagen"}
         </span>
+        {tempImage && !staticSrc && (
+          <span className="text-white/70 text-xs mt-1">(temporal)</span>
+        )}
       </div>
     </div>
   );

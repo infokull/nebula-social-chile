@@ -37,30 +37,34 @@ export const ChallengesSection = () => {
           {challenges.map((challenge, index) => (
             <div
               key={challenge.title}
-              className="bg-card rounded-2xl p-6 md:p-8 border border-border card-hover"
+              className="bg-card rounded-2xl overflow-hidden border border-border card-hover"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-16 h-16 rounded-2xl bg-muted overflow-hidden mb-6">
+              {/* Imagen grande arriba */}
+              <div className="w-full aspect-[4/3] bg-muted overflow-hidden">
                 <ImageReplacer
                   imageKey={`challenge-${index + 1}`}
-                  aspectRatio="square"
-                  className="w-full h-full"
+                  aspectRatio="auto"
+                  className="w-full h-full rounded-none"
                   defaultContent={
-                    <div className="w-full h-full bg-purple/20 flex items-center justify-center">
-                      <challenge.icon className="w-8 h-8 text-purple" />
+                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/70 flex items-center justify-center">
+                      <challenge.icon className="w-16 h-16 text-muted-foreground/40" />
                     </div>
                   }
                 />
               </div>
               
-              <h4 className="font-serif text-xl text-foreground mb-3">
-                {challenge.title}
-              </h4>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">{challenge.stat}</span>{" "}
-                {challenge.description}
-              </p>
+              {/* Contenido debajo */}
+              <div className="p-6 md:p-8">
+                <h4 className="font-serif text-xl text-foreground mb-3">
+                  {challenge.title}
+                </h4>
+                
+                <p className="text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-foreground">{challenge.stat}</span>{" "}
+                  {challenge.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>
