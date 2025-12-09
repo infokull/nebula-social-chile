@@ -1,3 +1,5 @@
+import { ImageReplacer } from "./ImageReplacer";
+
 const features = [
   {
     number: "1",
@@ -55,17 +57,21 @@ export const FeaturesListSection = () => {
 
               {/* Image placeholder */}
               <div className="md:col-span-6">
-                <div className="bg-card rounded-xl border border-border overflow-hidden aspect-video">
-                  <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 bg-navy/5 rounded-lg border border-border/50 flex items-center justify-center">
-                      <div className="text-center p-4">
-                        <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple/20 to-coral/20 flex items-center justify-center">
-                          <span className="text-2xl font-bold gradient-text">{feature.number}</span>
+                <ImageReplacer
+                  imageKey={`feature-${feature.number}`}
+                  className="border border-border"
+                  defaultContent={
+                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+                      <div className="w-3/4 h-3/4 bg-navy/5 rounded-lg border border-border/50 flex items-center justify-center">
+                        <div className="text-center p-4">
+                          <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple/20 to-coral/20 flex items-center justify-center">
+                            <span className="text-2xl font-bold gradient-text">{feature.number}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  }
+                />
               </div>
             </div>
           ))}
