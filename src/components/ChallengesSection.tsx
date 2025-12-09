@@ -1,4 +1,5 @@
 import { Database, Puzzle, Zap } from "lucide-react";
+import { ImageReplacer } from "./ImageReplacer";
 
 const challenges = [
   {
@@ -39,16 +40,16 @@ export const ChallengesSection = () => {
               className="bg-card rounded-2xl p-6 md:p-8 border border-border card-hover"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center mb-6">
-                <img 
-                  src={`https://cdn.prod.website-files.com/6115505d46eace49d6ae6aa2/683d842fbf126343a1abfe35_NS.sm${index + 1}.avif`}
-                  alt={challenge.title}
-                  className="w-12 h-12 object-cover rounded-lg"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.parentElement!.innerHTML = `<div class="w-12 h-12 bg-purple/20 rounded-lg flex items-center justify-center"><challenge.icon class="w-6 h-6 text-purple" /></div>`;
-                  }}
+              <div className="w-16 h-16 rounded-2xl bg-muted overflow-hidden mb-6">
+                <ImageReplacer
+                  imageKey={`challenge-${index + 1}`}
+                  aspectRatio="square"
+                  className="w-full h-full"
+                  defaultContent={
+                    <div className="w-full h-full bg-purple/20 flex items-center justify-center">
+                      <challenge.icon className="w-8 h-8 text-purple" />
+                    </div>
+                  }
                 />
               </div>
               

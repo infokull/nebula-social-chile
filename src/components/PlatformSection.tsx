@@ -1,4 +1,5 @@
 import { Eye } from "lucide-react";
+import { ImageReplacer } from "./ImageReplacer";
 
 export const PlatformSection = () => {
   return (
@@ -27,39 +28,53 @@ export const PlatformSection = () => {
           {/* Screenshots mockup */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-coral/20 to-orange-300/20 rounded-3xl transform rotate-3" />
-            <div className="relative bg-navy rounded-2xl p-4 shadow-2xl">
-              <div className="aspect-video bg-navy/80 rounded-lg overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center">
-                  {/* Simulated dashboard */}
-                  <div className="w-full h-full p-4 space-y-3">
-                    <div className="flex gap-2">
-                      <div className="h-3 w-20 bg-purple/40 rounded" />
-                      <div className="h-3 w-16 bg-coral/40 rounded" />
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 h-20">
-                      <div className="bg-purple/20 rounded-lg" />
-                      <div className="bg-coral/20 rounded-lg" />
-                      <div className="bg-orange-400/20 rounded-lg" />
-                    </div>
-                    <div className="h-32 bg-gradient-to-br from-purple/30 to-coral/30 rounded-lg flex items-center justify-center">
-                      <div className="w-24 h-24 border-4 border-coral/40 rounded-full flex items-center justify-center">
-                        <div className="w-16 h-16 bg-purple/40 rounded-full" />
+            <ImageReplacer
+              imageKey="platform-main"
+              className="relative shadow-2xl"
+              defaultContent={
+                <div className="bg-navy rounded-2xl p-4 w-full h-full">
+                  <div className="aspect-video bg-navy/80 rounded-lg overflow-hidden">
+                    <div className="w-full h-full flex items-center justify-center">
+                      {/* Simulated dashboard */}
+                      <div className="w-full h-full p-4 space-y-3">
+                        <div className="flex gap-2">
+                          <div className="h-3 w-20 bg-purple/40 rounded" />
+                          <div className="h-3 w-16 bg-coral/40 rounded" />
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 h-20">
+                          <div className="bg-purple/20 rounded-lg" />
+                          <div className="bg-coral/20 rounded-lg" />
+                          <div className="bg-orange-400/20 rounded-lg" />
+                        </div>
+                        <div className="h-32 bg-gradient-to-br from-purple/30 to-coral/30 rounded-lg flex items-center justify-center">
+                          <div className="w-24 h-24 border-4 border-coral/40 rounded-full flex items-center justify-center">
+                            <div className="w-16 h-16 bg-purple/40 rounded-full" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              }
+            />
             
             {/* Secondary screenshot */}
-            <div className="absolute -bottom-8 -left-8 w-48 bg-navy rounded-xl p-2 shadow-xl">
-              <div className="aspect-video bg-navy/80 rounded-lg p-2">
-                <div className="space-y-1">
-                  <div className="h-2 w-full bg-coral/30 rounded" />
-                  <div className="h-2 w-3/4 bg-purple/30 rounded" />
-                  <div className="h-2 w-1/2 bg-orange-400/30 rounded" />
-                </div>
-              </div>
+            <div className="absolute -bottom-8 -left-8 w-48">
+              <ImageReplacer
+                imageKey="platform-secondary"
+                className="shadow-xl"
+                defaultContent={
+                  <div className="bg-navy rounded-xl p-2 w-full h-full">
+                    <div className="aspect-video bg-navy/80 rounded-lg p-2">
+                      <div className="space-y-1">
+                        <div className="h-2 w-full bg-coral/30 rounded" />
+                        <div className="h-2 w-3/4 bg-purple/30 rounded" />
+                        <div className="h-2 w-1/2 bg-orange-400/30 rounded" />
+                      </div>
+                    </div>
+                  </div>
+                }
+              />
             </div>
           </div>
         </div>

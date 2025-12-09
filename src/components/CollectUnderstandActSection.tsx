@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { ImageReplacer } from "./ImageReplacer";
 
 const tabs = [
   {
@@ -63,49 +64,55 @@ export const CollectUnderstandActSection = () => {
         {/* Tab Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <div className="bg-navy rounded-2xl p-6 aspect-video flex items-center justify-center">
-              <div className="w-full h-full p-4">
-                {activeTab === "collect" && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="grid grid-cols-4 gap-2 w-full">
-                      {Array.from({ length: 12 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className="aspect-square bg-gradient-to-br from-purple/40 to-coral/40 rounded-lg animate-pulse"
-                          style={{ animationDelay: `${i * 0.1}s` }}
-                        />
-                      ))}
-                    </div>
+            <ImageReplacer
+              imageKey={`tab-${activeTab}`}
+              className="bg-navy rounded-2xl"
+              defaultContent={
+                <div className="bg-navy rounded-2xl p-6 aspect-video flex items-center justify-center w-full h-full">
+                  <div className="w-full h-full p-4">
+                    {activeTab === "collect" && (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="grid grid-cols-4 gap-2 w-full">
+                          {Array.from({ length: 12 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className="aspect-square bg-gradient-to-br from-purple/40 to-coral/40 rounded-lg animate-pulse"
+                              style={{ animationDelay: `${i * 0.1}s` }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {activeTab === "understand" && (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="relative w-48 h-48">
+                          <div className="absolute inset-0 border-2 border-purple/40 rounded-full animate-pulse" />
+                          <div className="absolute inset-4 border-2 border-coral/40 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                          <div className="absolute inset-8 border-2 border-orange-400/40 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                          <div className="absolute inset-16 bg-gradient-to-br from-purple to-coral rounded-full" />
+                        </div>
+                      </div>
+                    )}
+                    {activeTab === "act" && (
+                      <div className="w-full h-full flex flex-col justify-center space-y-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-purple rounded-full" />
+                          <div className="flex-1 h-3 bg-purple/30 rounded" />
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-coral rounded-full" />
+                          <div className="flex-1 h-3 bg-coral/30 rounded" />
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-orange-400 rounded-full" />
+                          <div className="flex-1 h-3 bg-orange-400/30 rounded" />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-                {activeTab === "understand" && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="relative w-48 h-48">
-                      <div className="absolute inset-0 border-2 border-purple/40 rounded-full animate-pulse" />
-                      <div className="absolute inset-4 border-2 border-coral/40 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                      <div className="absolute inset-8 border-2 border-orange-400/40 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
-                      <div className="absolute inset-16 bg-gradient-to-br from-purple to-coral rounded-full" />
-                    </div>
-                  </div>
-                )}
-                {activeTab === "act" && (
-                  <div className="w-full h-full flex flex-col justify-center space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-purple rounded-full" />
-                      <div className="flex-1 h-3 bg-purple/30 rounded" />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-coral rounded-full" />
-                      <div className="flex-1 h-3 bg-coral/30 rounded" />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-orange-400 rounded-full" />
-                      <div className="flex-1 h-3 bg-orange-400/30 rounded" />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+                </div>
+              }
+            />
           </div>
 
           <div className="order-1 lg:order-2">
