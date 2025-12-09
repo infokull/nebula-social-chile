@@ -1,5 +1,6 @@
 import { Eye } from "lucide-react";
 import { ImageReplacer } from "./ImageReplacer";
+import { VideoReplacer } from "./VideoReplacer";
 
 export const PlatformSection = () => {
   return (
@@ -58,15 +59,15 @@ export const PlatformSection = () => {
               }
             />
             
-            {/* Secondary screenshot */}
+            {/* Secondary video */}
             <div className="absolute -bottom-8 -left-8 w-48">
-              <ImageReplacer
-                imageKey="platform-secondary"
+              <VideoReplacer
+                videoKey="platform-video"
                 className="shadow-xl"
                 defaultContent={
                   <div className="bg-navy rounded-xl p-2 w-full h-full">
-                    <div className="aspect-video bg-navy/80 rounded-lg p-2">
-                      <div className="space-y-1">
+                    <div className="aspect-video bg-navy/80 rounded-lg p-2 flex items-center justify-center">
+                      <div className="space-y-1 w-full">
                         <div className="h-2 w-full bg-coral/30 rounded" />
                         <div className="h-2 w-3/4 bg-purple/30 rounded" />
                         <div className="h-2 w-1/2 bg-orange-400/30 rounded" />
