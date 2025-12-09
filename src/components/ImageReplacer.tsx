@@ -11,7 +11,7 @@ interface ImageReplacerProps {
   imageKey: string;
   defaultContent?: React.ReactNode;
   className?: string;
-  aspectRatio?: "video" | "square" | "auto";
+  aspectRatio?: "video" | "square" | "auto" | "portrait";
   staticSrc?: string;
 }
 
@@ -94,6 +94,7 @@ export const ImageReplacer = ({
     video: "aspect-video",
     square: "aspect-square",
     auto: "",
+    portrait: "aspect-[3/4]",
   };
 
   return (
