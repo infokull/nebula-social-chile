@@ -66,14 +66,15 @@ export const CollectUnderstandActSection = () => {
           <div className="order-2 lg:order-1">
             <ImageReplacer
               imageKey={`tab-${activeTab}`}
-              className="bg-navy rounded-2xl"
+              className="bg-navy rounded-2xl min-h-[500px] lg:min-h-[600px]"
+              aspectRatio="portrait"
               defaultContent={
-                <div className="bg-navy rounded-2xl p-6 aspect-video flex items-center justify-center w-full h-full">
+                <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full h-full min-h-[500px] lg:min-h-[600px]">
                   <div className="w-full h-full p-4">
                     {activeTab === "collect" && (
                       <div className="w-full h-full flex items-center justify-center">
                         <div className="grid grid-cols-4 gap-2 w-full">
-                          {Array.from({ length: 12 }).map((_, i) => (
+                          {Array.from({ length: 16 }).map((_, i) => (
                             <div
                               key={i}
                               className="aspect-square bg-gradient-to-br from-purple/40 to-coral/40 rounded-lg animate-pulse"
