@@ -2,6 +2,16 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
+// HTML escape function to prevent XSS attacks in email templates
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -24,7 +34,12 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { name, email, message, toEmail }: ContactEmailRequest = await req.json();
 
-    console.log("Sending contact email from:", email, "to:", toEmail);
+    console.log("Sending contact email to:", toEmail);
+    
+    // Sanitize user inputs to prevent XSS in email templates
+    const safeName = escapeHtml(name || '');
+    const safeEmail = escapeHtml(email || '');
+    const safeMessage = escapeHtml(message || '').replace(/\n/g, '<br>');
 
     // Validate inputs
     if (!name || !email || !message || !toEmail) {
@@ -66,12 +81,12 @@ const handler = async (req: Request): Promise<Response> => {
               Nuevo Mensaje de Contacto
             </h1>
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p style="margin: 5px 0;"><strong>Nombre:</strong> ${name}</p>
-              <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
+              <p style="margin: 5px 0;"><strong>Nombre:</strong> ${safeName}</p>
+              <p style="margin: 5px 0;"><strong>Email:</strong> ${safeEmail}</p>
             </div>
             <div style="background-color: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
               <h3 style="color: #1a1a2e; margin-top: 0;">Mensaje:</h3>
-              <p style="line-height: 1.6; color: #333;">${message.replace(/\n/g, '<br>')}</p>
+              <p style="line-height: 1.6; color: #333;">${safeMessage}</p>
             </div>
             <p style="color: #888; font-size: 12px; margin-top: 20px;">
               Este mensaje fue enviado desde el formulario de contacto de Nebula Social Chile
@@ -103,14 +118,14 @@ const handler = async (req: Request): Promise<Response> => {
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h1 style="color: #1a1a2e; border-bottom: 2px solid #e8533f; padding-bottom: 10px;">
-              ¡Gracias por contactarnos, ${name}!
+              ¡Gracias por contactarnos, ${safeName}!
             </h1>
             <p style="line-height: 1.6; color: #333;">
               Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.
             </p>
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #1a1a2e; margin-top: 0;">Tu mensaje:</h3>
-              <p style="line-height: 1.6; color: #555;">${message.replace(/\n/g, '<br>')}</p>
+              <p style="line-height: 1.6; color: #555;">${safeMessage}</p>
             </div>
             <p style="color: #333;">
               Saludos cordiales,<br>
