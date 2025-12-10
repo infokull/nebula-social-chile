@@ -8,6 +8,7 @@ const features = [
     titleDefault: "Enfoque de Red Primero",
     descKey: "feature-1-desc",
     descDefault: "Nebula Social crea una red curada compuesta por los influencers, creadores, sonidos, hashtags y links que más importan.",
+    bgColor: "bg-[hsl(270,60%,95%)]", // lavender
   },
   {
     number: "2",
@@ -15,6 +16,7 @@ const features = [
     titleDefault: "Tecnología de Visión de Video",
     descKey: "feature-2-desc",
     descDefault: "Analiza y entiende videos, imágenes, descripciones y comentarios para descubrir tonos emocionales y tendencias visuales, prediciendo no solo qué se volverá viral, sino por qué resuena en plataformas como TikTok e Instagram.",
+    bgColor: "bg-[hsl(150,50%,92%)]", // mint green
   },
   {
     number: "3",
@@ -22,6 +24,7 @@ const features = [
     titleDefault: "Insights Basados en Narrativas",
     descKey: "feature-3-desc",
     descDefault: "Obtén insights precisos y análisis de tendencias sobre opiniones de audiencias e influencers y por qué importa para tu marca, productos y campañas.",
+    bgColor: "bg-[hsl(200,70%,92%)]", // light blue
   },
   {
     number: "4",
@@ -29,6 +32,7 @@ const features = [
     titleDefault: "Kepler - El Agente Experto Personalizado de Redes Sociales",
     descKey: "feature-4-desc",
     descDefault: "Explora insights y descubre nuevas ideas con un agente experto en redes sociales basado en personas. Kepler proporciona insights cualitativos y cuantitativos en lenguaje natural. Porque Kepler tiene memoria a largo plazo, se vuelve más inteligente con el tiempo incorporando lo que aprende.",
+    bgColor: "bg-[hsl(25,80%,93%)]", // peach
   },
 ];
 
@@ -43,11 +47,11 @@ export const FeaturesListSection = () => {
           className="font-serif text-3xl md:text-4xl text-center text-foreground mb-12 md:mb-16"
         />
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {features.map((feature) => (
             <div
               key={feature.number}
-              className="grid md:grid-cols-12 gap-6 md:gap-8 items-start"
+              className={`grid md:grid-cols-12 gap-6 md:gap-8 items-center p-6 md:p-8 rounded-2xl ${feature.bgColor}`}
             >
               {/* Number */}
               <div className="md:col-span-1">
@@ -77,14 +81,12 @@ export const FeaturesListSection = () => {
               <div className="md:col-span-6">
                 <ImageReplacer
                   imageKey={`feature-${feature.number}`}
-                  className="border border-border"
+                  className="border border-border rounded-xl overflow-hidden shadow-lg"
                   defaultContent={
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                      <div className="w-3/4 h-3/4 bg-navy/5 rounded-lg border border-border/50 flex items-center justify-center">
-                        <div className="text-center p-4">
-                          <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple/20 to-coral/20 flex items-center justify-center">
-                            <span className="text-2xl font-bold gradient-text">{feature.number}</span>
-                          </div>
+                    <div className="w-full h-full bg-gradient-to-br from-navy to-navy/80 flex items-center justify-center">
+                      <div className="text-center p-4">
+                        <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white/10 flex items-center justify-center">
+                          <span className="text-2xl font-bold text-white">{feature.number}</span>
                         </div>
                       </div>
                     </div>
