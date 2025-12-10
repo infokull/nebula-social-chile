@@ -37,6 +37,9 @@ export const Footer = () => {
             className="text-sm text-primary-foreground/50"
           />
           <div className="flex gap-6 text-sm text-primary-foreground/50">
+            <Link to="/" className="hover:text-primary-foreground transition-colors">
+              <TextReplacer contentKey="footer-link-home" defaultValue="Inicio" as="span" className="text-primary-foreground/50 hover:text-primary-foreground" />
+            </Link>
             <Link to="/privacidad" className="hover:text-primary-foreground transition-colors">
               <TextReplacer contentKey="footer-link-privacy" defaultValue="Privacidad" as="span" className="text-primary-foreground/50 hover:text-primary-foreground" />
             </Link>
