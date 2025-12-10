@@ -10,24 +10,21 @@ interface AdminLoginProps {
 }
 
 export const AdminLogin = ({ onClose }: AdminLoginProps) => {
-  const { user, signIn, signUp, signOut, loading } = useAuth();
+  const { user, signIn, signOut, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { error } = isSignUp 
-      ? await signUp(email, password)
-      : await signIn(email, password);
+    const { error } = await signIn(email, password);
 
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success(isSignUp ? "Cuenta creada. Ya puedes subir imágenes." : "Sesión iniciada");
+      toast.success("Sesión iniciada");
       onClose?.();
     }
 
@@ -58,7 +55,7 @@ export const AdminLogin = ({ onClose }: AdminLoginProps) => {
     <div className="p-6 bg-card rounded-lg border border-border max-w-sm mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-foreground">
-          {isSignUp ? "Crear cuenta de administrador" : "Iniciar sesión"}
+          Acceso Administrador
         </h3>
         {onClose && (
           <Button variant="ghost" size="icon" onClick={onClose}>
@@ -85,7 +82,7 @@ export const AdminLogin = ({ onClose }: AdminLoginProps) => {
         />
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           <LogIn className="w-4 h-4 mr-2" />
-          {isSubmitting ? "Procesando..." : (isSignUp ? "Crear cuenta" : "Entrar")}
+          {isSubmitting ? "Procesando..." : "Entrar"}
         </Button>
       </form>
 
