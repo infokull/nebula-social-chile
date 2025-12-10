@@ -10,21 +10,24 @@ interface AdminLoginProps {
 }
 
 export const AdminLogin = ({ onClose }: AdminLoginProps) => {
-  const { user, signIn, signOut, loading } = useAuth();
+  const { user, signIn, signUp, signOut, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { error } = await signIn(email, password);
+    const { error } = isSignUp 
+      ? await signUp(email, password)
+      : await signIn(email, password);
 
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Sesión iniciada");
+      toast.success(isSignUp ? "Cuenta creada" : "Sesión iniciada");
       onClose?.();
     }
 
@@ -82,13 +85,17 @@ export const AdminLogin = ({ onClose }: AdminLoginProps) => {
         />
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           <LogIn className="w-4 h-4 mr-2" />
-          {isSubmitting ? "Procesando..." : "Entrar"}
+          {isSubmitting ? "Procesando..." : (isSignUp ? "Crear cuenta" : "Entrar")}
         </Button>
       </form>
 
-      <p className="mt-4 text-xs text-muted-foreground text-center">
-        Solo administradores autorizados pueden acceder.
-      </p>
+      <button
+        type="button"
+        className="mt-4 text-sm text-muted-foreground hover:text-foreground w-full text-center"
+        onClick={() => setIsSignUp(!isSignUp)}
+      >
+        {isSignUp ? "¿Ya tienes cuenta? Inicia sesión" : "¿Primera vez? Crear cuenta"}
+      </button>
     </div>
   );
 };
