@@ -90,9 +90,11 @@ export const CollectUnderstandActSection = () => {
 
         {/* Tab Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1 flex items-center justify-center">
+          <div className="order-2 lg:order-1 flex items-center justify-center relative">
+            {/* All tabs are always mounted but hidden - this preserves state */}
+            
             {/* Collect Tab */}
-            {activeTab === "collect" && (
+            <div className={cn("w-full", activeTab !== "collect" && "hidden")}>
               <ImageReplacer
                 imageKey="tab-collect"
                 className="bg-navy rounded-2xl w-full"
@@ -113,10 +115,10 @@ export const CollectUnderstandActSection = () => {
                   </div>
                 }
               />
-            )}
+            </div>
 
             {/* Understand Tab */}
-            {activeTab === "understand" && (
+            <div className={cn("w-full", activeTab !== "understand" && "hidden")}>
               <ImageReplacer
                 imageKey="tab-understand"
                 className="bg-navy rounded-2xl w-full"
@@ -134,10 +136,10 @@ export const CollectUnderstandActSection = () => {
                   </div>
                 }
               />
-            )}
+            </div>
 
             {/* Act Tab */}
-            {activeTab === "act" && (
+            <div className={cn("w-full", activeTab !== "act" && "hidden")}>
               <ImageReplacer
                 imageKey="tab-act"
                 className="bg-navy rounded-2xl w-full"
@@ -161,7 +163,7 @@ export const CollectUnderstandActSection = () => {
                   </div>
                 }
               />
-            )}
+            </div>
           </div>
 
           <div className="order-1 lg:order-2">
