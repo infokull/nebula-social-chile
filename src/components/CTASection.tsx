@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { DotPattern } from "./DotPattern";
+import { TextReplacer } from "./TextReplacer";
 
 export const CTASection = () => {
   return (
@@ -14,12 +15,20 @@ export const CTASection = () => {
 
       <div className="section-container relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-8">
-            ¿Listo Para Comenzar Con Nebula Social?
-          </h2>
+          <TextReplacer
+            contentKey="cta-title"
+            defaultValue="¿Listo Para Comenzar Con Nebula Social?"
+            as="h2"
+            className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-8"
+          />
 
           <Button variant="gradient" size="xl">
-            Contáctanos
+            <TextReplacer
+              contentKey="cta-button"
+              defaultValue="Contáctanos"
+              as="span"
+              className="inline"
+            />
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
