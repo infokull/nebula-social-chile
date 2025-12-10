@@ -1,6 +1,7 @@
 import { Eye } from "lucide-react";
 import { ImageReplacer } from "./ImageReplacer";
 import { VideoReplacer } from "./VideoReplacer";
+import { TextReplacer } from "./TextReplacer";
 
 export const PlatformSection = () => {
   return (
@@ -13,17 +14,32 @@ export const PlatformSection = () => {
               <Eye className="w-6 h-6 text-coral" />
             </div>
             
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground leading-tight">
-              Construido para las plataformas de redes sociales complejas, abrumadoras y rápidamente cambiantes de hoy
-            </h2>
+            <TextReplacer
+              contentKey="platform-title"
+              defaultValue="Construido para las plataformas de redes sociales complejas, abrumadoras y rápidamente cambiantes de hoy"
+              as="h2"
+              className="font-serif text-3xl md:text-4xl text-foreground leading-tight"
+            />
             
-            <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-              Los agentes expertos de Nebula Social analizan continuamente publicaciones, comentarios, hashtags, sonidos y frases clave de tu red curada, creando un Grafo de Conocimiento que organiza millones de relaciones en tiempo casi real.
-            </p>
+            <div className="mt-6">
+              <TextReplacer
+                contentKey="platform-desc-1"
+                defaultValue="Los agentes expertos de Nebula Social analizan continuamente publicaciones, comentarios, hashtags, sonidos y frases clave de tu red curada, creando un Grafo de Conocimiento que organiza millones de relaciones en tiempo casi real."
+                as="p"
+                className="text-muted-foreground text-lg leading-relaxed"
+                multiline
+              />
+            </div>
             
-            <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-              Nuestro Motor de Conocimiento luego integra todo, para entregar insights narrativos accionables basados en atención que puedes actuar y monitorear a lo largo del tiempo.
-            </p>
+            <div className="mt-4">
+              <TextReplacer
+                contentKey="platform-desc-2"
+                defaultValue="Nuestro Motor de Conocimiento luego integra todo, para entregar insights narrativos accionables basados en atención que puedes actuar y monitorear a lo largo del tiempo."
+                as="p"
+                className="text-muted-foreground text-lg leading-relaxed"
+                multiline
+              />
+            </div>
           </div>
 
           {/* Screenshots mockup */}

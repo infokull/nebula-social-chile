@@ -1,25 +1,34 @@
 import { ImageReplacer } from "./ImageReplacer";
+import { TextReplacer } from "./TextReplacer";
 
 const features = [
   {
     number: "1",
-    title: "Enfoque de Red Primero",
-    description: "Nebula Social crea una red curada compuesta por los influencers, creadores, sonidos, hashtags y links que más importan.",
+    titleKey: "feature-1-title",
+    titleDefault: "Enfoque de Red Primero",
+    descKey: "feature-1-desc",
+    descDefault: "Nebula Social crea una red curada compuesta por los influencers, creadores, sonidos, hashtags y links que más importan.",
   },
   {
     number: "2",
-    title: "Tecnología de Visión de Video",
-    description: "Analiza y entiende videos, imágenes, descripciones y comentarios para descubrir tonos emocionales y tendencias visuales, prediciendo no solo qué se volverá viral, sino por qué resuena en plataformas como TikTok e Instagram.",
+    titleKey: "feature-2-title",
+    titleDefault: "Tecnología de Visión de Video",
+    descKey: "feature-2-desc",
+    descDefault: "Analiza y entiende videos, imágenes, descripciones y comentarios para descubrir tonos emocionales y tendencias visuales, prediciendo no solo qué se volverá viral, sino por qué resuena en plataformas como TikTok e Instagram.",
   },
   {
     number: "3",
-    title: "Insights Basados en Narrativas",
-    description: "Obtén insights precisos y análisis de tendencias sobre opiniones de audiencias e influencers y por qué importa para tu marca, productos y campañas.",
+    titleKey: "feature-3-title",
+    titleDefault: "Insights Basados en Narrativas",
+    descKey: "feature-3-desc",
+    descDefault: "Obtén insights precisos y análisis de tendencias sobre opiniones de audiencias e influencers y por qué importa para tu marca, productos y campañas.",
   },
   {
     number: "4",
-    title: "Kepler - El Agente Experto Personalizado de Redes Sociales",
-    description: "Explora insights y descubre nuevas ideas con un agente experto en redes sociales basado en personas. Kepler proporciona insights cualitativos y cuantitativos en lenguaje natural. Porque Kepler tiene memoria a largo plazo, se vuelve más inteligente con el tiempo incorporando lo que aprende.",
+    titleKey: "feature-4-title",
+    titleDefault: "Kepler - El Agente Experto Personalizado de Redes Sociales",
+    descKey: "feature-4-desc",
+    descDefault: "Explora insights y descubre nuevas ideas con un agente experto en redes sociales basado en personas. Kepler proporciona insights cualitativos y cuantitativos en lenguaje natural. Porque Kepler tiene memoria a largo plazo, se vuelve más inteligente con el tiempo incorporando lo que aprende.",
   },
 ];
 
@@ -27,13 +36,15 @@ export const FeaturesListSection = () => {
   return (
     <section className="py-16 md:py-24 bg-muted/30">
       <div className="section-container">
-        <h2 className="font-serif text-3xl md:text-4xl text-center text-foreground mb-12 md:mb-16">
-          Diseñado para Trabajo de Conocimiento,<br />
-          Construido para Redes Sociales
-        </h2>
+        <TextReplacer
+          contentKey="features-title"
+          defaultValue="Diseñado para Trabajo de Conocimiento, Construido para Redes Sociales"
+          as="h2"
+          className="font-serif text-3xl md:text-4xl text-center text-foreground mb-12 md:mb-16"
+        />
 
         <div className="space-y-8">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div
               key={feature.number}
               className="grid md:grid-cols-12 gap-6 md:gap-8 items-start"
@@ -47,12 +58,19 @@ export const FeaturesListSection = () => {
 
               {/* Content */}
               <div className="md:col-span-5">
-                <h3 className="font-serif text-xl md:text-2xl text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
+                <TextReplacer
+                  contentKey={feature.titleKey}
+                  defaultValue={feature.titleDefault}
+                  as="h3"
+                  className="font-serif text-xl md:text-2xl text-foreground mb-2"
+                />
+                <TextReplacer
+                  contentKey={feature.descKey}
+                  defaultValue={feature.descDefault}
+                  as="p"
+                  className="text-muted-foreground leading-relaxed"
+                  multiline
+                />
               </div>
 
               {/* Image placeholder */}

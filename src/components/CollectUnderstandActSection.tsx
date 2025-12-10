@@ -1,34 +1,53 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ImageReplacer } from "./ImageReplacer";
+import { TextReplacer } from "./TextReplacer";
 
 const tabs = [
   {
     id: "collect",
-    label: "Recolectar Todos los Datos",
-    title: "Recolectar Todos Los Datos",
-    stat: "94%",
-    statLabel: "reducción promedio en tiempo de scroll en redes sociales",
-    description: "Los equipos reducen el tiempo de scroll en redes sociales en un 94% en promedio, ahorrando miles de horas desplazándose y viendo videos.",
-    subtext: "Nuestros agentes expertos están siempre activos, observando e interpretando miles de horas de video cada día - para que tú no tengas que hacerlo.",
+    labelKey: "tab-collect-label",
+    labelDefault: "Recolectar Todos los Datos",
+    titleKey: "tab-collect-title",
+    titleDefault: "Recolectar Todos Los Datos",
+    statKey: "tab-collect-stat",
+    statDefault: "94%",
+    statLabelKey: "tab-collect-stat-label",
+    statLabelDefault: "reducción promedio en tiempo de scroll en redes sociales",
+    descKey: "tab-collect-desc",
+    descDefault: "Los equipos reducen el tiempo de scroll en redes sociales en un 94% en promedio, ahorrando miles de horas desplazándose y viendo videos.",
+    subtextKey: "tab-collect-subtext",
+    subtextDefault: "Nuestros agentes expertos están siempre activos, observando e interpretando miles de horas de video cada día - para que tú no tengas que hacerlo.",
   },
   {
     id: "understand",
-    label: "Entender Quién y Qué Importa",
-    title: "Entender Quién y Qué Son Importantes",
-    stat: "6.7x",
-    statLabel: "más rápido identificando creadores y narrativas relevantes",
-    description: "Identificación 6.7x más rápida de creadores y narrativas relevantes basada en un enfoque de red primero que entiende quién y qué están ganando atención.",
-    subtext: "",
+    labelKey: "tab-understand-label",
+    labelDefault: "Entender Quién y Qué Importa",
+    titleKey: "tab-understand-title",
+    titleDefault: "Entender Quién y Qué Son Importantes",
+    statKey: "tab-understand-stat",
+    statDefault: "6.7x",
+    statLabelKey: "tab-understand-stat-label",
+    statLabelDefault: "más rápido identificando creadores y narrativas relevantes",
+    descKey: "tab-understand-desc",
+    descDefault: "Identificación 6.7x más rápida de creadores y narrativas relevantes basada en un enfoque de red primero que entiende quién y qué están ganando atención.",
+    subtextKey: "",
+    subtextDefault: "",
   },
   {
     id: "act",
-    label: "Actuar sobre Tendencias Narrativas",
-    title: "Actuar sobre Tendencias Basadas en Narrativas",
-    stat: "11.2x",
-    statLabel: "más rápido hacia insights accionables",
-    description: "Comparado con soluciones legacy basadas en palabras clave, el Grafo de Conocimiento de Nebula entrega su análisis a través de narrativas basadas en atención—haciéndolo 11.2x más rápido hacia insights accionables y 72% más probable de entregar mejores resultados.",
-    subtext: "Kepler es tu asistente estratégico en tiempo real que aprovecha estos insights narrativos para responder cualquier pregunta y ayudarte a enfocarte en lo que realmente importa.",
+    labelKey: "tab-act-label",
+    labelDefault: "Actuar sobre Tendencias Narrativas",
+    titleKey: "tab-act-title",
+    titleDefault: "Actuar sobre Tendencias Basadas en Narrativas",
+    statKey: "tab-act-stat",
+    statDefault: "11.2x",
+    statLabelKey: "tab-act-stat-label",
+    statLabelDefault: "más rápido hacia insights accionables",
+    descKey: "tab-act-desc",
+    descDefault: "Comparado con soluciones legacy basadas en palabras clave, el Grafo de Conocimiento de Nebula entrega su análisis a través de narrativas basadas en atención—haciéndolo 11.2x más rápido hacia insights accionables y 72% más probable de entregar mejores resultados.",
+    subtextKey: "tab-act-subtext",
+    subtextDefault: "Kepler es tu asistente estratégico en tiempo real que aprovecha estos insights narrativos para responder cualquier pregunta y ayudarte a enfocarte en lo que realmente importa.",
   },
 ];
 
@@ -39,9 +58,12 @@ export const CollectUnderstandActSection = () => {
   return (
     <section className="py-16 md:py-24 bg-muted/30">
       <div className="section-container">
-        <h2 className="font-serif text-3xl md:text-4xl text-center text-foreground mb-12">
-          Recolectar. Entender. Actuar.
-        </h2>
+        <TextReplacer
+          contentKey="collect-section-title"
+          defaultValue="Recolectar. Entender. Actuar."
+          as="h2"
+          className="font-serif text-3xl md:text-4xl text-center text-foreground mb-12"
+        />
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-12">
@@ -56,7 +78,12 @@ export const CollectUnderstandActSection = () => {
                   : "bg-card text-muted-foreground hover:bg-muted border border-border"
               )}
             >
-              {tab.label}
+              <TextReplacer
+                contentKey={tab.labelKey}
+                defaultValue={tab.labelDefault}
+                as="span"
+                className="inline"
+              />
             </button>
           ))}
         </div>
@@ -138,25 +165,48 @@ export const CollectUnderstandActSection = () => {
           </div>
 
           <div className="order-1 lg:order-2">
-            <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
-              {activeContent.title}
-            </h3>
+            <TextReplacer
+              contentKey={activeContent.titleKey}
+              defaultValue={activeContent.titleDefault}
+              as="h3"
+              className="font-serif text-2xl md:text-3xl text-foreground mb-4"
+            />
             
             <div className="mb-6">
-              <span className="text-5xl md:text-6xl font-bold gradient-text">
-                {activeContent.stat}
-              </span>
-              <p className="text-muted-foreground mt-2">{activeContent.statLabel}</p>
+              <TextReplacer
+                contentKey={activeContent.statKey}
+                defaultValue={activeContent.statDefault}
+                as="span"
+                className="text-5xl md:text-6xl font-bold gradient-text"
+              />
+              <div className="mt-2">
+                <TextReplacer
+                  contentKey={activeContent.statLabelKey}
+                  defaultValue={activeContent.statLabelDefault}
+                  as="p"
+                  className="text-muted-foreground"
+                />
+              </div>
             </div>
 
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              {activeContent.description}
-            </p>
+            <TextReplacer
+              contentKey={activeContent.descKey}
+              defaultValue={activeContent.descDefault}
+              as="p"
+              className="text-muted-foreground text-lg leading-relaxed"
+              multiline
+            />
             
-            {activeContent.subtext && (
-              <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-                {activeContent.subtext}
-              </p>
+            {activeContent.subtextKey && (
+              <div className="mt-4">
+                <TextReplacer
+                  contentKey={activeContent.subtextKey}
+                  defaultValue={activeContent.subtextDefault}
+                  as="p"
+                  className="text-muted-foreground text-lg leading-relaxed"
+                  multiline
+                />
+              </div>
             )}
           </div>
         </div>
