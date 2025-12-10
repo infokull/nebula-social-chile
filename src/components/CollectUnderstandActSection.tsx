@@ -90,15 +90,15 @@ export const CollectUnderstandActSection = () => {
 
         {/* Tab Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 flex items-center justify-center">
             {/* Collect Tab */}
             {activeTab === "collect" && (
               <ImageReplacer
                 imageKey="tab-collect"
-                className="bg-navy rounded-2xl min-h-[500px] lg:min-h-[600px]"
-                aspectRatio="portrait"
+                className="bg-navy rounded-2xl w-full"
+                aspectRatio="auto"
                 defaultContent={
-                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full h-full min-h-[500px] lg:min-h-[600px]">
+                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full aspect-[3/4]">
                     <div className="w-full h-full p-4 flex items-center justify-center">
                       <div className="grid grid-cols-4 gap-2 w-full">
                         {Array.from({ length: 16 }).map((_, i) => (
@@ -119,10 +119,10 @@ export const CollectUnderstandActSection = () => {
             {activeTab === "understand" && (
               <ImageReplacer
                 imageKey="tab-understand"
-                className="bg-navy rounded-2xl min-h-[500px] lg:min-h-[600px]"
-                aspectRatio="portrait"
+                className="bg-navy rounded-2xl w-full"
+                aspectRatio="auto"
                 defaultContent={
-                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full h-full min-h-[500px] lg:min-h-[600px]">
+                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full aspect-[3/4]">
                     <div className="w-full h-full p-4 flex items-center justify-center">
                       <div className="relative w-48 h-48">
                         <div className="absolute inset-0 border-2 border-purple/40 rounded-full animate-pulse" />
@@ -140,10 +140,10 @@ export const CollectUnderstandActSection = () => {
             {activeTab === "act" && (
               <ImageReplacer
                 imageKey="tab-act"
-                className="bg-navy rounded-2xl min-h-[500px] lg:min-h-[600px]"
-                aspectRatio="portrait"
+                className="bg-navy rounded-2xl w-full"
+                aspectRatio="auto"
                 defaultContent={
-                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full h-full min-h-[500px] lg:min-h-[600px]">
+                  <div className="bg-navy rounded-2xl p-6 flex items-center justify-center w-full aspect-[3/4]">
                     <div className="w-full h-full p-4 flex flex-col justify-center space-y-3">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-purple rounded-full" />
