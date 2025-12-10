@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { uploadImage } from "@/lib/storage";
 import { useAuth } from "@/hooks/useAuth";
-import { AdminLogin } from "./AdminLogin";
+import { useAdmin } from "@/hooks/useAdmin";
 import { supabase } from "@/integrations/supabase/client";
 
 interface ImageReplacerProps {
@@ -23,9 +23,9 @@ export const ImageReplacer = ({
   staticSrc,
 }: ImageReplacerProps) => {
   const { user } = useAuth();
+  const { isAdmin } = useAdmin();
   const [cloudImage, setCloudImage] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -61,8 +61,8 @@ export const ImageReplacer = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!user) {
-      setShowLogin(true);
+    if (!isAdmin) {
+      toast.error("Solo administradores pueden editar el contenido");
       return;
     }
 
@@ -83,9 +83,8 @@ export const ImageReplacer = ({
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!user) {
-      setShowLogin(true);
-      return;
+    if (!isAdmin) {
+      return; // Non-admins can't edit
     }
     fileInputRef.current?.click();
   };
@@ -97,41 +96,45 @@ export const ImageReplacer = ({
     portrait: "aspect-[3/4]",
   };
 
+  // Only admins see the interactive cursor
+  const isEditable = isAdmin;
+
   return (
-    <>
-      <div
-        className={cn(
-          "relative overflow-hidden rounded-xl cursor-pointer group",
-          aspectClasses[aspectRatio],
-          className
-        )}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        onClick={handleClick}
-      >
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="hidden"
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-xl group",
+        isEditable && "cursor-pointer",
+        aspectClasses[aspectRatio],
+        className
+      )}
+      onMouseEnter={() => isEditable && setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      onClick={isEditable ? handleClick : undefined}
+    >
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
+      {displayImage ? (
+        <img
+          src={displayImage}
+          alt="Custom"
+          className="w-full h-full object-cover"
         />
+      ) : (
+        defaultContent || (
+          <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+            <ImageIcon className="w-12 h-12 text-muted-foreground/50" />
+          </div>
+        )
+      )}
 
-        {displayImage ? (
-          <img
-            src={displayImage}
-            alt="Custom"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          defaultContent || (
-            <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-              <ImageIcon className="w-12 h-12 text-muted-foreground/50" />
-            </div>
-          )
-        )}
-
-        {/* Hover overlay */}
+      {/* Hover overlay - only for admins */}
+      {isEditable && (
         <div
           className={cn(
             "absolute inset-0 bg-navy/80 flex flex-col items-center justify-center transition-opacity duration-200",
@@ -140,35 +143,16 @@ export const ImageReplacer = ({
         >
           {isUploading ? (
             <span className="text-white text-sm">Subiendo...</span>
-          ) : user ? (
+          ) : (
             <>
               <Upload className="w-8 h-8 text-white mb-2" />
               <span className="text-white text-sm font-medium text-center px-4">
                 {displayImage ? "Reemplazar imagen" : "Subir imagen"}
               </span>
             </>
-          ) : (
-            <>
-              <Lock className="w-8 h-8 text-white mb-2" />
-              <span className="text-white text-sm font-medium text-center px-4">
-                Inicia sesión para editar
-              </span>
-            </>
           )}
         </div>
-      </div>
-
-      {/* Login modal */}
-      {showLogin && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowLogin(false)}
-        >
-          <div onClick={(e) => e.stopPropagation()}>
-            <AdminLogin onClose={() => setShowLogin(false)} />
-          </div>
-        </div>
       )}
-    </>
+    </div>
   );
 };
