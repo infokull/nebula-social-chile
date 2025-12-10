@@ -89,13 +89,9 @@ export const AdminLogin = ({ onClose }: AdminLoginProps) => {
         </Button>
       </form>
 
-      <button
-        type="button"
-        className="mt-4 text-sm text-muted-foreground hover:text-foreground w-full text-center"
-        onClick={() => setIsSignUp(!isSignUp)}
-      >
-        {isSignUp ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Créala aquí"}
-      </button>
+      <p className="mt-4 text-xs text-muted-foreground text-center">
+        Solo administradores autorizados pueden acceder.
+      </p>
     </div>
   );
 };

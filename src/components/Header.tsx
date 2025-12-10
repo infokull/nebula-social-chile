@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { AdminButton } from "./AdminButton";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,8 +34,9 @@ export const Header = () => {
             </a>
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button & Admin */}
+          <div className="hidden md:flex items-center gap-4">
+            <AdminButton />
             <Button variant="navy" size="default">
               Contáctanos
               <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,6 +70,9 @@ export const Header = () => {
               <a href="#blog" className="text-sm text-muted-foreground hover:text-foreground">
                 Blog
               </a>
+              <div className="pt-2 border-t border-border mt-2">
+                <AdminButton />
+              </div>
               <Button variant="navy" size="default" className="w-full mt-2">
                 Contáctanos
               </Button>

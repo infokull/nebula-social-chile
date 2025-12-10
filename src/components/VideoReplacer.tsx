@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Upload, Video, Lock, Play } from "lucide-react";
+import { Upload, Video, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
-import { AdminLogin } from "./AdminLogin";
+import { useAdmin } from "@/hooks/useAdmin";
 import { supabase } from "@/integrations/supabase/client";
 
 interface VideoReplacerProps {
@@ -46,9 +46,9 @@ export const VideoReplacer = ({
   className,
 }: VideoReplacerProps) => {
   const { user } = useAuth();
+  const { isAdmin } = useAdmin();
   const [cloudVideo, setCloudVideo] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -81,8 +81,8 @@ export const VideoReplacer = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!user) {
-      setShowLogin(true);
+    if (!isAdmin) {
+      toast.error("Solo administradores pueden editar el contenido");
       return;
     }
 
@@ -109,24 +109,25 @@ export const VideoReplacer = ({
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!user) {
-      setShowLogin(true);
-      return;
+    if (!isAdmin) {
+      return; // Non-admins can't edit
     }
     fileInputRef.current?.click();
   };
 
+  const isEditable = isAdmin;
+
   return (
-    <>
-      <div
-        className={cn(
-          "relative overflow-hidden rounded-xl cursor-pointer group aspect-video",
-          className
-        )}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        onClick={handleClick}
-      >
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-xl group aspect-video",
+        isEditable && "cursor-pointer",
+        className
+      )}
+      onMouseEnter={() => isEditable && setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      onClick={isEditable ? handleClick : undefined}
+    >
         <input
           ref={fileInputRef}
           type="file"
@@ -153,7 +154,8 @@ export const VideoReplacer = ({
           )
         )}
 
-        {/* Hover overlay */}
+      {/* Hover overlay - only for admins */}
+      {isEditable && (
         <div
           className={cn(
             "absolute inset-0 bg-navy/80 flex flex-col items-center justify-center transition-opacity duration-200",
@@ -162,42 +164,23 @@ export const VideoReplacer = ({
         >
           {isUploading ? (
             <span className="text-white text-sm">Subiendo video...</span>
-          ) : user ? (
+          ) : (
             <>
               <Upload className="w-8 h-8 text-white mb-2" />
               <span className="text-white text-sm font-medium text-center px-4">
                 {cloudVideo ? "Reemplazar video" : "Subir video MP4"}
               </span>
             </>
-          ) : (
-            <>
-              <Lock className="w-8 h-8 text-white mb-2" />
-              <span className="text-white text-sm font-medium text-center px-4">
-                Inicia sesión para editar
-              </span>
-            </>
           )}
         </div>
+      )}
 
-        {/* Play icon when video is present but not hovering */}
-        {cloudVideo && !isHovering && (
-          <div className="absolute bottom-3 right-3 bg-navy/60 rounded-full p-2">
-            <Play className="w-4 h-4 text-white" fill="white" />
-          </div>
-        )}
-      </div>
-
-      {/* Login modal */}
-      {showLogin && (
-        <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowLogin(false)}
-        >
-          <div onClick={(e) => e.stopPropagation()}>
-            <AdminLogin onClose={() => setShowLogin(false)} />
-          </div>
+      {/* Play icon when video is present but not hovering */}
+      {cloudVideo && !isHovering && (
+        <div className="absolute bottom-3 right-3 bg-navy/60 rounded-full p-2">
+          <Play className="w-4 h-4 text-white" fill="white" />
         </div>
       )}
-    </>
+    </div>
   );
 };
