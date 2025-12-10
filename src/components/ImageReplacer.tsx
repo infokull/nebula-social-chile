@@ -123,7 +123,10 @@ export const ImageReplacer = ({
         <img
           src={displayImage}
           alt="Custom"
-          className="w-full h-full object-cover"
+          className={cn(
+            "w-full",
+            aspectRatio === "auto" ? "h-auto object-contain" : "h-full object-cover"
+          )}
         />
       ) : (
         defaultContent || (

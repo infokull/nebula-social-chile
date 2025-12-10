@@ -16,7 +16,7 @@ const features = [
     titleDefault: "Tecnología de Visión de Video",
     descKey: "feature-2-desc",
     descDefault: "Analiza y entiende videos, imágenes, descripciones y comentarios para descubrir tonos emocionales y tendencias visuales, prediciendo no solo qué se volverá viral, sino por qué resuena en plataformas como TikTok e Instagram.",
-    bgColor: "bg-[hsl(150,50%,92%)]", // mint green
+    bgColor: "bg-[hsl(25,80%,93%)]", // peach
   },
   {
     number: "3",
@@ -32,7 +32,7 @@ const features = [
     titleDefault: "Kepler - El Agente Experto Personalizado de Redes Sociales",
     descKey: "feature-4-desc",
     descDefault: "Explora insights y descubre nuevas ideas con un agente experto en redes sociales basado en personas. Kepler proporciona insights cualitativos y cuantitativos en lenguaje natural. Porque Kepler tiene memoria a largo plazo, se vuelve más inteligente con el tiempo incorporando lo que aprende.",
-    bgColor: "bg-[hsl(25,80%,93%)]", // peach
+    bgColor: "bg-[hsl(150,50%,92%)]", // mint green
   },
 ];
 
@@ -82,8 +82,9 @@ export const FeaturesListSection = () => {
                 <ImageReplacer
                   imageKey={`feature-${feature.number}`}
                   className="border border-border rounded-xl overflow-hidden shadow-lg"
+                  aspectRatio="auto"
                   defaultContent={
-                    <div className="w-full h-full bg-gradient-to-br from-navy to-navy/80 flex items-center justify-center">
+                    <div className="w-full aspect-video bg-gradient-to-br from-navy to-navy/80 flex items-center justify-center">
                       <div className="text-center p-4">
                         <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-white/10 flex items-center justify-center">
                           <span className="text-2xl font-bold text-white">{feature.number}</span>
