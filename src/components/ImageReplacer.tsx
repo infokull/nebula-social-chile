@@ -32,8 +32,8 @@ export const ImageReplacer = ({
   // Load image from cloud storage on mount
   useEffect(() => {
     const checkCloudImage = async () => {
-      // Check for common extensions
-      const extensions = ["png", "jpg", "jpeg", "webp", "gif"];
+      // Check for common extensions (including avif)
+      const extensions = ["avif", "png", "jpg", "jpeg", "webp", "gif"];
       for (const ext of extensions) {
         const { data } = supabase.storage
           .from("site-images")
