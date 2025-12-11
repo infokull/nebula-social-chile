@@ -10,7 +10,7 @@ export const CTASection = () => {
 
   return (
     <>
-      <section className="relative py-20 md:py-32 overflow-hidden">
+      <section className="relative py-14 md:py-20 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background to-muted/50" />
         

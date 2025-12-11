@@ -34,7 +34,7 @@ const challenges = [
 
 export const ChallengesSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-10 md:py-16">
       <div className="section-container">
         <TextReplacer
           contentKey="challenges-title-1"

@@ -5,7 +5,7 @@ import { TextReplacer } from "./TextReplacer";
 
 export const PlatformSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section className="py-10 md:py-16 bg-muted/30">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}

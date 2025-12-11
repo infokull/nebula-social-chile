@@ -38,7 +38,7 @@ const features = [
 
 export const FeaturesListSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section className="py-10 md:py-16 bg-muted/30">
       <div className="section-container">
         <TextReplacer
           contentKey="features-title"
