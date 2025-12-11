@@ -3,7 +3,7 @@ import { VideoReplacer } from "./VideoReplacer";
 
 export const AttentionVideoSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-10 md:py-16">
       <div className="section-container">
         <div className="max-w-4xl mx-auto text-center">
           <TextReplacer

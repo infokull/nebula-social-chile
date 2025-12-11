@@ -14,7 +14,7 @@ const useCases = [
 
 export const UseCasesSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-10 md:py-16">
       <div className="section-container">
         <TextReplacer
           contentKey="usecases-title"
