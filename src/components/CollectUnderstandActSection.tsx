@@ -53,7 +53,6 @@ const tabs = [
 
 export const CollectUnderstandActSection = () => {
   const [activeTab, setActiveTab] = useState("collect");
-  const activeContent = tabs.find((tab) => tab.id === activeTab)!;
 
   return (
     <section className="py-16 md:py-24 bg-muted/30">
@@ -166,50 +165,55 @@ export const CollectUnderstandActSection = () => {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
-            <TextReplacer
-              contentKey={activeContent.titleKey}
-              defaultValue={activeContent.titleDefault}
-              as="h3"
-              className="font-serif text-2xl md:text-3xl text-foreground mb-4"
-            />
-            
-            <div className="mb-6">
-              <TextReplacer
-                contentKey={activeContent.statKey}
-                defaultValue={activeContent.statDefault}
-                as="span"
-                className="text-5xl md:text-6xl font-bold gradient-text"
-              />
-              <div className="mt-2">
+          <div className="order-1 lg:order-2 relative">
+            {/* All tab text content always mounted but hidden - preserves state */}
+            {tabs.map((tab) => (
+              <div key={tab.id} className={cn(activeTab !== tab.id && "hidden")}>
                 <TextReplacer
-                  contentKey={activeContent.statLabelKey}
-                  defaultValue={activeContent.statLabelDefault}
-                  as="p"
-                  className="text-muted-foreground"
+                  contentKey={tab.titleKey}
+                  defaultValue={tab.titleDefault}
+                  as="h3"
+                  className="font-serif text-2xl md:text-3xl text-foreground mb-4"
                 />
-              </div>
-            </div>
+                
+                <div className="mb-6">
+                  <TextReplacer
+                    contentKey={tab.statKey}
+                    defaultValue={tab.statDefault}
+                    as="span"
+                    className="text-5xl md:text-6xl font-bold gradient-text"
+                  />
+                  <div className="mt-2">
+                    <TextReplacer
+                      contentKey={tab.statLabelKey}
+                      defaultValue={tab.statLabelDefault}
+                      as="p"
+                      className="text-muted-foreground"
+                    />
+                  </div>
+                </div>
 
-            <TextReplacer
-              contentKey={activeContent.descKey}
-              defaultValue={activeContent.descDefault}
-              as="p"
-              className="text-muted-foreground text-lg leading-relaxed"
-              multiline
-            />
-            
-            {activeContent.subtextKey && (
-              <div className="mt-4">
                 <TextReplacer
-                  contentKey={activeContent.subtextKey}
-                  defaultValue={activeContent.subtextDefault}
+                  contentKey={tab.descKey}
+                  defaultValue={tab.descDefault}
                   as="p"
                   className="text-muted-foreground text-lg leading-relaxed"
                   multiline
                 />
+                
+                {tab.subtextKey && (
+                  <div className="mt-4">
+                    <TextReplacer
+                      contentKey={tab.subtextKey}
+                      defaultValue={tab.subtextDefault}
+                      as="p"
+                      className="text-muted-foreground text-lg leading-relaxed"
+                      multiline
+                    />
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
         </div>
       </div>
