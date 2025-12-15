@@ -10,7 +10,7 @@ export const HeroSection = () => {
 
   return (
     <>
-      <section className="relative pt-24 pb-14 md:pt-28 md:pb-20 overflow-hidden">
+      <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden">
         {/* Dot patterns */}
         <DotPattern position="left" className="top-20 w-64 h-80" />
         <DotPattern position="right" className="top-20 w-64 h-80" />
