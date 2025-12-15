@@ -64,7 +64,12 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Send notification email to admin
+    // Parse multiple recipients (comma-separated)
+    const recipients = toEmail.split(',').map((e: string) => e.trim()).filter((e: string) => e.length > 0);
+    
+    console.log("Sending to recipients:", recipients);
+
+    // Send notification email to admin(s)
     const adminEmailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -72,8 +77,8 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Nebula Social <onboarding@resend.dev>",
-        to: [toEmail],
+        from: "Nebula Social <soporte@kull.cl>",
+        to: recipients,
         subject: `Nuevo mensaje de contacto de ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -112,7 +117,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Nebula Social <onboarding@resend.dev>",
+        from: "Nebula Social <soporte@kull.cl>",
         to: [email],
         subject: "Hemos recibido tu mensaje - Nebula Social",
         html: `
