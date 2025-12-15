@@ -78,11 +78,18 @@ export const ContactFormDialog = ({ open, onOpenChange }: ContactFormDialogProps
     }
   }, [open]);
 
+  const validateEmails = (emailString: string): boolean => {
+    if (!emailString.trim()) return false;
+    const emails = emailString.split(',').map(e => e.trim()).filter(e => e.length > 0);
+    if (emails.length === 0) return false;
+    return emails.every(email => z.string().email().safeParse(email).success);
+  };
+
   const handleSaveEmail = async () => {
-    if (!newEmail || !z.string().email().safeParse(newEmail).success) {
+    if (!validateEmails(newEmail)) {
       toast({
         title: "Error",
-        description: "Por favor ingresa un email válido",
+        description: "Por favor ingresa emails válidos (separados por coma)",
         variant: "destructive",
       });
       return;
@@ -212,10 +219,10 @@ ${formData.message || "Sin mensaje adicional"}
                   </Label>
                   <Input
                     id="config-email"
-                    type="email"
+                    type="text"
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
-                    placeholder="correo@ejemplo.com"
+                    placeholder="email1@ejemplo.com,email2@ejemplo.com"
                   />
                 </div>
                 <Button onClick={handleSaveEmail} size="sm">
