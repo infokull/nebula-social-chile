@@ -16,7 +16,7 @@ export const HeroSection = () => {
         <DotPattern position="right" className="top-20 w-64 h-80" />
 
         <div className="section-container relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <TextReplacer
               contentKey="hero-title"
               defaultValue="El único agente experto que entrega narrativas sociales basadas en atención real de las audiencias"
