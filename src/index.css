@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Manrope font loaded via index.html */
 
 @layer base {
   :root {
@@ -111,11 +111,12 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Manrope', sans-serif;
+    @apply font-bold;
   }
 }
 
@@ -155,12 +156,8 @@
 }
 
 @layer utilities {
-  .font-serif {
-    font-family: 'DM Serif Display', serif;
-  }
-
   .font-sans {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
 
   .text-balance {
