@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Bitter + Manrope fonts loaded via index.html */
+/* Questrial + Manrope fonts loaded via index.html */
 
 @layer base {
   :root {
@@ -115,7 +115,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bitter', serif;
+    font-family: 'Questrial', sans-serif;
     @apply font-normal;
   }
 }
@@ -156,8 +156,8 @@
 }
 
 @layer utilities {
-  .font-serif {
-    font-family: 'Bitter', serif;
+  .font-display {
+    font-family: 'Questrial', sans-serif;
   }
 
   .font-sans {
