@@ -63,8 +63,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['DM Serif Display', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Manrope', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
