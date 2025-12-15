@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Manrope font loaded via index.html */
+/* Bitter + Manrope fonts loaded via index.html */
 
 @layer base {
   :root {
@@ -115,8 +115,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Manrope', sans-serif;
-    @apply font-bold;
+    font-family: 'Bitter', serif;
+    @apply font-normal;
   }
 }
 
@@ -156,6 +156,10 @@
 }
 
 @layer utilities {
+  .font-serif {
+    font-family: 'Bitter', serif;
+  }
+
   .font-sans {
     font-family: 'Manrope', sans-serif;
   }
