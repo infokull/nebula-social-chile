@@ -63,7 +63,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['Bitter', 'serif'],
+        display: ['Questrial', 'sans-serif'],
         sans: ['Manrope', 'sans-serif'],
       },
       borderRadius: {
