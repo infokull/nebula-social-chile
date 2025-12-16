@@ -18,40 +18,36 @@ export const DotPattern = ({ className, position }: DotPatternProps) => {
       "bg-blue-400",
     ];
 
-    // Generate clustered dots with overlapping effect
-    const clusters = 4;
-    const dotsPerCluster = 4;
+    // Generate scattered small dots
+    const totalDots = 40;
     
-    for (let c = 0; c < clusters; c++) {
-      // Base position for each cluster
-      const clusterTop = 15 + c * 22;
-      const clusterLeft = position === "left" 
-        ? 10 + (c % 2) * 25 
-        : 50 + (c % 2) * 25;
+    for (let i = 0; i < totalDots; i++) {
+      // Mix of sizes - mostly small
+      const sizeRandom = Math.random();
+      const size = sizeRandom > 0.85 ? "w-2.5 h-2.5" : sizeRandom > 0.5 ? "w-2 h-2" : "w-1.5 h-1.5";
+      const color = colors[Math.floor(Math.random() * colors.length)];
       
-      for (let i = 0; i < dotsPerCluster; i++) {
-        const size = Math.random() > 0.5 ? "w-6 h-6" : "w-5 h-5";
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        // Small offset from cluster center for overlap effect
-        const offsetTop = (Math.random() - 0.5) * 15;
-        const offsetLeft = (Math.random() - 0.5) * 15;
-        
-        result.push(
-          <div
-            key={`${c}-${i}`}
-            className={cn(
-              "absolute rounded-full mix-blend-multiply",
-              size,
-              color
-            )}
-            style={{
-              top: `${clusterTop + offsetTop}%`,
-              left: `${clusterLeft + offsetLeft}%`,
-              opacity: 0.5 + Math.random() * 0.3,
-            }}
-          />
-        );
-      }
+      // Scatter dots vertically across the area
+      const top = 5 + Math.random() * 90;
+      const left = position === "left" 
+        ? 5 + Math.random() * 55 
+        : 40 + Math.random() * 55;
+      
+      result.push(
+        <div
+          key={i}
+          className={cn(
+            "absolute rounded-full",
+            size,
+            color
+          )}
+          style={{
+            top: `${top}%`,
+            left: `${left}%`,
+            opacity: 0.4 + Math.random() * 0.5,
+          }}
+        />
+      );
     }
     
     return result;
