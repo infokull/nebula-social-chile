@@ -11,10 +11,10 @@ export const HeroSection = () => {
   return (
     <>
       <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden">
-        {/* Left dots - higher up, more dots */}
-        <DotPattern position="left" className="hidden md:block -left-8 top-8 w-72 h-96 z-0" />
-        {/* Right dots - lower down, fewer dots */}
-        <DotPattern position="right" className="hidden md:block -right-8 top-40 w-56 h-72 z-0" />
+        {/* Left dots - higher up, more dots, overlapping with text */}
+        <DotPattern position="left" className="hidden md:block left-4 lg:left-16 top-12 w-80 h-96 z-0" />
+        {/* Right dots - lower down, fewer dots, closer to text */}
+        <DotPattern position="right" className="hidden md:block right-4 lg:right-20 top-32 w-56 h-80 z-0" />
 
         <div className="section-container relative z-10">
           <div className="max-w-6xl mx-auto text-center">
