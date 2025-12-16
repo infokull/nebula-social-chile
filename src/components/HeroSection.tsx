@@ -11,9 +11,9 @@ export const HeroSection = () => {
   return (
     <>
       <section className="relative pt-28 pb-14 md:pt-36 md:pb-20 overflow-hidden">
-        {/* Dot patterns */}
-        <DotPattern position="left" className="top-20 w-64 h-80" />
-        <DotPattern position="right" className="top-20 w-64 h-80" />
+        {/* Dot patterns - hidden on mobile, visible on desktop overlapping text */}
+        <DotPattern position="left" className="hidden md:block top-16 w-72 h-96 z-0" />
+        <DotPattern position="right" className="hidden md:block top-24 w-64 h-80 z-0" />
 
         <div className="section-container relative z-10">
           <div className="max-w-6xl mx-auto text-center">
@@ -44,6 +44,11 @@ export const HeroSection = () => {
                 />
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
+            </div>
+
+            {/* Mobile dot pattern - below CTA */}
+            <div className="md:hidden relative h-32 mt-8">
+              <DotPattern position="left" className="top-0 left-1/2 -translate-x-1/2 w-48 h-32" />
             </div>
           </div>
         </div>
