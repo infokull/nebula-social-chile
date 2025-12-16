@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 interface DotPatternProps {
   className?: string;
@@ -6,40 +7,55 @@ interface DotPatternProps {
 }
 
 export const DotPattern = ({ className, position }: DotPatternProps) => {
-  const dots = [];
-  const colors = [
-    "bg-purple",
-    "bg-coral",
-    "bg-purple/60",
-    "bg-coral/60",
-    "bg-orange-400",
-    "bg-purple/40",
-    "bg-coral/40",
-  ];
+  const dots = useMemo(() => {
+    const result = [];
+    const colors = [
+      "bg-cyan-300",
+      "bg-cyan-400",
+      "bg-sky-300",
+      "bg-sky-400",
+      "bg-blue-300",
+      "bg-blue-400",
+    ];
 
-  // Generate random dots
-  for (let i = 0; i < 35; i++) {
-    const size = Math.random() > 0.7 ? "w-2 h-2" : "w-1.5 h-1.5";
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const top = Math.random() * 100;
-    const left = position === "left" ? Math.random() * 60 : 40 + Math.random() * 60;
+    // Generate clustered dots with overlapping effect
+    const clusters = 4;
+    const dotsPerCluster = 4;
     
-    dots.push(
-      <div
-        key={i}
-        className={cn(
-          "absolute rounded-full",
-          size,
-          color
-        )}
-        style={{
-          top: `${top}%`,
-          left: `${left}%`,
-          opacity: 0.4 + Math.random() * 0.6,
-        }}
-      />
-    );
-  }
+    for (let c = 0; c < clusters; c++) {
+      // Base position for each cluster
+      const clusterTop = 15 + c * 22;
+      const clusterLeft = position === "left" 
+        ? 10 + (c % 2) * 25 
+        : 50 + (c % 2) * 25;
+      
+      for (let i = 0; i < dotsPerCluster; i++) {
+        const size = Math.random() > 0.5 ? "w-6 h-6" : "w-5 h-5";
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        // Small offset from cluster center for overlap effect
+        const offsetTop = (Math.random() - 0.5) * 15;
+        const offsetLeft = (Math.random() - 0.5) * 15;
+        
+        result.push(
+          <div
+            key={`${c}-${i}`}
+            className={cn(
+              "absolute rounded-full mix-blend-multiply",
+              size,
+              color
+            )}
+            style={{
+              top: `${clusterTop + offsetTop}%`,
+              left: `${clusterLeft + offsetLeft}%`,
+              opacity: 0.5 + Math.random() * 0.3,
+            }}
+          />
+        );
+      }
+    }
+    
+    return result;
+  }, [position]);
 
   return (
     <div
