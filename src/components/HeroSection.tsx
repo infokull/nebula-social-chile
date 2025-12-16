@@ -47,9 +47,9 @@ export const HeroSection = () => {
               </Button>
             </div>
 
-            {/* Mobile dot pattern - below CTA */}
-            <div className="md:hidden relative h-32 mt-8">
-              <DotPattern position="left" className="top-0 left-1/2 -translate-x-1/2 w-48 h-32" />
+            {/* Mobile dot pattern - below CTA, very subtle */}
+            <div className="md:hidden relative h-24 mt-6 opacity-40">
+              <DotPattern position="left" className="top-0 left-1/2 -translate-x-1/2 w-40 h-24" />
             </div>
           </div>
         </div>
